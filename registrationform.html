@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom right, #6a11cb, #2575fc);
+            color: #444;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+        }
+        .form-container h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"], select, input[type="radio"], input[type="checkbox"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .checkbox-group label, .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        button {
+            background: #007bff;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 14px;
+            padding: 10px 15px;
+            cursor: pointer;
+            flex: 1;
+            transition: 0.3s ease-in-out;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .reset-button {
+            background: #ff4b4b;
+        }
+        .reset-button:hover {
+            background: #cc0000;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            display: none;
+        }
+        #output h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        #output p {
+            font-size: 16px;
+        }
+        .success-message {
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Student Registration Form</h1>
+        <form id="registration-form">
+            <label for="student-id">Student ID:</label>
+            <input type="text" id="student-id" name="student_id" placeholder="Enter your ID" required>
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+            <label>Semester:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="semester" value="Even" required> Even Sem</label>
+                <label><input type="radio" name="semester" value="Odd"> Odd Sem</label>
+            </div>
+
+            <label>Year:</label>
+            <div class="radio-group">
+                <label><input type="radio" name="year" value="1" required> 1st Year</label>
+                <label><input type="radio" name="year" value="2"> 2nd Year</label>
+                <label><input type="radio" name="year" value="3"> 3rd Year</label>
+                <label><input type="radio" name="year" value="4"> 4th Year</label>
+            </div>
+
+            <label>Courses:</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="courses" value="EPAM"> EPAM</label>
+                <label><input type="checkbox" name="courses" value="PDC (Parallel & Distributed Computing)"> PDC</label>
+                <label><input type="checkbox" name="courses" value="SDC (Software Development Concepts)"> SDC</label>
+                <label><input type="checkbox" name="courses" value="TERM PAPER"> TERM PAPER</label>
+                <label><input type="checkbox" name="courses" value="Problem Solving-II"> PROBLEM SOLVING-II</label>
+                <label><input type="checkbox" name="courses" value="DEEP LEARNING"> DEEP LEARNING</label>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Register</button>
+                <button type="reset" class="reset-button">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="output">
+        <h2>Registration Summary</h2>
+        <p class="success-message">Registration Successful!</p>
+        <p><strong>Student ID:</strong> <span id="output-student-id"></span></p>
+        <p><strong>Name:</strong> <span id="output-name"></span></p>
+        <p><strong>Semester:</strong> <span id="output-semester"></span></p>
+        <p><strong>Year:</strong> <span id="output-year"></span></p>
+        <p><strong>Courses Registered:</strong> <span id="output-courses"></span></p>
+    </div>
+
+    <script>
+        document.getElementById('registration-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Get form values
+            const studentId = document.getElementById('student-id').value;
+            const name = document.getElementById('name').value;
+            const semester = document.querySelector('input[name="semester"]:checked').value;
+            const year = document.querySelector('input[name="year"]:checked').value;
+            const courses = Array.from(document.querySelectorAll('input[name="courses"]:checked')).map(el => el.value);
+
+            // Display output details
+            document.getElementById('output-student-id').textContent = studentId;
+            document.getElementById('output-name').textContent = name;
+            document.getElementById('output-semester').textContent = semester;
+            document.getElementById('output-year').textContent = year;
+            document.getElementById('output-courses').textContent = courses.join(', ');
+
+            // Show registration summary
+            document.getElementById('output').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
